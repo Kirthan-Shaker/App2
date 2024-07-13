@@ -17,7 +17,15 @@ Developed by Kirthan Shaker Iyangar.
 """)
 
 # Sidebar for user inputs
-st.sidebar.header("Add a new investment")
+st.sidebar.header("How to Use This App")
+st.sidebar.write("""
+1. Enter the details of your investment in the fields below.
+2. Click "Add Investment" to save the investment.
+3. View your investments in the main table.
+4. Analyze your investment data with the provided charts.
+""")
+
+st.sidebar.header("Add a New Investment")
 
 # Input fields for new investments
 investment_name = st.sidebar.text_input("Investment Name")
