@@ -54,3 +54,4 @@ else:
 if st.session_state['investments']:
     total_invested = sum([investment["Amount Invested"] for investment in st.session_state['investments']])
     st.subheader(f"Total Amount Invested: ${total_invested:.2f}")
+    streamlit run app.py
