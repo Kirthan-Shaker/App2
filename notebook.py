@@ -2,8 +2,19 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-# Title of the app
-st.title("Personal Finance Management App")
+# Title and description of the app
+st.title("Welcome to Your Investment Tracker")
+st.write("""
+## Personal Finance Management App
+This app allows you to track your investments across different asset classes. You can add new investments, view your portfolio, and analyze your investment data. 
+Features include:
+- Adding investments with details like investment name, type, amount, date, currency, and stock name.
+- Viewing and analyzing your investment portfolio.
+- Visualizing your investments with charts.
+- Tracking total amount invested.
+
+Developed by Kirthan Shaker Iyangar.
+""")
 
 # Sidebar for user inputs
 st.sidebar.header("Add a new investment")
@@ -13,6 +24,8 @@ investment_name = st.sidebar.text_input("Investment Name")
 investment_type = st.sidebar.selectbox("Investment Type", ["Stock", "Bond", "Mutual Fund", "Real Estate", "Cryptocurrency"])
 amount_invested = st.sidebar.number_input("Amount Invested", min_value=0.0, step=100.0)
 investment_date = st.sidebar.date_input("Investment Date")
+currency = st.sidebar.selectbox("Currency", ["USD", "EUR", "INR", "JPY", "GBP", "AUD", "CAD", "CHF", "CNY", "SEK", "NZD"])
+stock_name = st.sidebar.text_input("Stock Name (if applicable)")
 add_investment = st.sidebar.button("Add Investment")
 
 # Data storage for investments
@@ -25,7 +38,9 @@ if add_investment:
         "Investment Name": investment_name,
         "Investment Type": investment_type,
         "Amount Invested": amount_invested,
-        "Investment Date": investment_date
+        "Investment Date": investment_date,
+        "Currency": currency,
+        "Stock Name": stock_name
     })
     st.sidebar.success("Investment added successfully!")
 
@@ -41,7 +56,8 @@ if st.session_state['investments']:
     chart = alt.Chart(df).mark_bar().encode(
         x='Investment Type',
         y='Amount Invested',
-        color='Investment Type'
+        color='Investment Type',
+        tooltip=['Investment Name', 'Amount Invested', 'Currency', 'Stock Name', 'Investment Date']
     ).properties(
         width=600,
         height=400
@@ -55,3 +71,8 @@ if st.session_state['investments']:
     total_invested = sum([investment["Amount Invested"] for investment in st.session_state['investments']])
     st.subheader(f"Total Amount Invested: ${total_invested:.2f}")
 
+# Footer
+st.write("""
+---
+Developed by Kirthan Shaker Iyangar.
+""")
