@@ -3,7 +3,7 @@ import pandas as pd
 import altair as alt
 
 # Title and description of the app
-st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtUJHAJcHyl0M9KhLlZ1RmBs7zJwyO6XCuMKiH3hku75gPTmWLWFQIf6hE59P8vWXd5zc&usqp=CAU", use_column_width=True)
+st.image("https://cdn.create.vista.com/api/media/small/173646276/stock-photo-female-hands-with-coins", use_column_width=True)
 st.title("Welcome to Your Investment Tracker")
 st.write("""
 ## Personal Finance Management App
