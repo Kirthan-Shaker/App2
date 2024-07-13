@@ -3,6 +3,7 @@ import pandas as pd
 import altair as alt
 
 # Title and description of the app
+st.image("professional_image.jpg", use_column_width=True)
 st.title("Welcome to Your Investment Tracker")
 st.write("""
 ## Personal Finance Management App
@@ -13,6 +14,7 @@ Features include:
 - Visualizing your investments with charts.
 - Tracking total amount invested.
 
+Developed by Kirthan Shaker Iyangar.
 """)
 
 # Sidebar for user inputs
@@ -81,5 +83,5 @@ if st.session_state['investments']:
 # Footer
 st.write("""
 ---
-This App was Developed by Kirthan Shaker Iyangar.
+Developed by Kirthan Shaker Iyangar.
 """)
