@@ -3,7 +3,7 @@ import pandas as pd
 import altair as alt
 
 # Title and description of the app
-st.image("https://images.pexels.com/photos/210600/pexels-pho….jpeg?cs=srgb&dl=pexels-pixabay-210600.jpg&fm=jpg", use_column_width=True)
+st.image("file:///Users/kirthanshaker/Downloads/pexels-pixabay-210600%20(1).jpg", use_column_width=True)
 st.title("Welcome to Your Investment Tracker")
 st.write("""
 ## Personal Finance Management App
