@@ -13,7 +13,6 @@ Features include:
 - Visualizing your investments with charts.
 - Tracking total amount invested.
 
-Developed by Kirthan Shaker Iyangar.
 """)
 
 # Sidebar for user inputs
@@ -82,5 +81,5 @@ if st.session_state['investments']:
 # Footer
 st.write("""
 ---
-Developed by Kirthan Shaker Iyangar.
+This App was Developed by Kirthan Shaker Iyangar.
 """)
