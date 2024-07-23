@@ -18,7 +18,7 @@ Features include:
 - Calculating and visualizing risk metrics.
 - Fetching and storing stock fundamentals.
 
-Developed by Kirthan Shaker Iyangar.
+Developed by Kirthan Shaker Iyangarr.
 """)
 
 # Creating tabs for Investment Tracker and Stock Fundamentals
