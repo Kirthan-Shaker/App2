@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
-import yfinance as yf
 
 # Title and description of the app
 st.image("https://cdn.create.vista.com/api/media/small/173646276/stock-photo-female-hands-with-coins", use_column_width=True)
