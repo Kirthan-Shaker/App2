@@ -144,5 +144,5 @@ with tab2:
 # Footer
 st.write("""
 ---
-Developed by Kirthan Shaker Iyangar.
+Developed by Kirthan Shaker Iyangarr.
 """)
