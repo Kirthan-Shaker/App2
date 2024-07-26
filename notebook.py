@@ -4,7 +4,7 @@ import numpy as np
 import altair as alt
 
 # Title and description of the app
-st.image("https://miro.medium.com/v2/resize:fit:1400/0*bHrRhzNjMW5dEHJM.png", use_column_width=True, width=2000)
+st.image("https://miro.medium.com/v2/resize:fit:1400/0*bHrRhzNjMW5dEHJM.png", use_column_width=True, width=1000)
 st.title("Welcome to Your Investment Tracker")
 st.write("""
 ## Personal Finance Management App
@@ -16,12 +16,13 @@ Features include:
 - Tracking total amount invested.
 - Calculating and visualizing risk metrics.
 - Placeholder for fetching and storing stock fundamentals.
+- Managing monthly budgets and tracking spending.
 
 Developed by Kirthan Shaker Iyangar.
 """)
 
-# Creating tabs for Investment Tracker and Stock Fundamentals
-tab1, tab2 = st.tabs(["Investment Tracker", "Stock Fundamentals"])
+# Creating tabs for Investment Tracker, Stock Fundamentals, and Budget Tracker
+tab1, tab2, tab3 = st.tabs(["Investment Tracker", "Stock Fundamentals", "Budget Tracker"])
 
 with tab1:
     # Sidebar for user inputs
@@ -130,8 +131,13 @@ with tab2:
             st.write(f"### Fundamentals for {selected_ticker}")
             st.json(fundamentals)
 
-# Footer
-st.write("""
----
-Developed by Kirthan Shaker Iyangar.
-""")
+with tab3:
+    st.header("Budget Tracker")
+
+    # Sidebar for budget tracker
+    st.sidebar.header("Add a Monthly Budget")
+
+    # Input fields for monthly budget
+    budget_month = st.sidebar.selectbox("Month", ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
+    budget_year = st.sidebar.number_input("Year", min_value=2000, max_value=2100, step=1, value=2024)
+    total_budget = st.sidebar.number_input
