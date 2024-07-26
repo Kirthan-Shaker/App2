@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
-import yfinance as yf
 
 # Title and description of the app
 st.image("https://cdn.create.vista.com/api/media/small/173646276/stock-photo-female-hands-with-coins", use_column_width=True)
@@ -16,9 +15,9 @@ Features include:
 - Visualizing your investments with charts.
 - Tracking total amount invested.
 - Calculating and visualizing risk metrics.
-- Fetching and storing stock fundamentals.
+- Placeholder for fetching and storing stock fundamentals.
 
-Developed by Kirthan Shaker Iyangarr.
+Developed by Kirthan Shaker Iyangar.
 """)
 
 # Creating tabs for Investment Tracker and Stock Fundamentals
@@ -119,18 +118,8 @@ with tab2:
     fetch_fundamentals = st.button("Fetch Fundamentals")
 
     if fetch_fundamentals:
-        try:
-            stock = yf.Ticker(stock_ticker)
-            fundamentals = stock.info
-
-            if 'fundamentals' not in st.session_state:
-                st.session_state['fundamentals'] = {}
-
-            st.session_state['fundamentals'][stock_ticker] = fundamentals
-
-            st.success(f"Fundamentals for {stock_ticker} fetched successfully!")
-        except Exception as e:
-            st.error(f"Error fetching fundamentals for {stock_ticker}: {e}")
+        # Placeholder for fetching fundamentals
+        st.write("This feature is currently unavailable. Please install yfinance to enable this feature.")
 
     # Display stored fundamentals
     if 'fundamentals' in st.session_state and st.session_state['fundamentals']:
@@ -144,5 +133,5 @@ with tab2:
 # Footer
 st.write("""
 ---
-Developed by Kirthan Shaker Iyangarr.
+Developed by Kirthan Shaker Iyangar.
 """)
