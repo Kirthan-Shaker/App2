@@ -136,7 +136,7 @@ with tab3:
     st.header("Budget Tracker")
 
     # Sidebar for budget tracker
-    st.sidebar.header("Add a Budget")
+    st.sidebar.header("Insert Amount for Budget Tracker")
 
     # Input fields for budget
     budget_category = st.sidebar.text_input("Category (e.g., Food, Rent, Entertainment)")
