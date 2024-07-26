@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
-import yfinance as yf
 
 # Title and description of the app
 st.image("https://cdn.create.vista.com/api/media/small/173646276/stock-photo-female-hands-with-coins", use_column_width=True)
@@ -16,10 +15,21 @@ Features include:
 - Visualizing your investments with charts.
 - Tracking total amount invested.
 - Calculating and visualizing risk metrics.
-- Fetching and storing stock fundamentals.
+- Fetching and displaying stock fundamentals.
 
 Developed by Kirthan Shaker Iyangar.
 """)
+
+# User authentication (Placeholder)
+def login():
+    st.sidebar.header("User Login")
+    username = st.sidebar.text_input("Username")
+    password = st.sidebar.text_input("Password", type='password')
+    if st.sidebar.button("Login"):
+        # Implement authentication logic here
+        st.sidebar.success("Logged in as {}".format(username))
+
+login()
 
 # Creating tabs for Investment Tracker and Stock Fundamentals
 tab1, tab2 = st.tabs(["Investment Tracker", "Stock Fundamentals"])
@@ -119,30 +129,12 @@ with tab2:
     fetch_fundamentals = st.button("Fetch Fundamentals")
 
     if fetch_fundamentals:
-        try:
-            stock = yf.Ticker(stock_ticker)
-            fundamentals = stock.info
+        # Placeholder for fetching fundamentals
+        st.write("This feature is currently unavailable. Please install yfinance to enable this feature.")
 
-            if 'fundamentals' not in st.session_state:
-                st.session_state['fundamentals'] = {}
-
-            st.session_state['fundamentals'][stock_ticker] = fundamentals
-
-            st.success(f"Fundamentals for {stock_ticker} fetched successfully!")
-        except Exception as e:
-            st.error(f"Error fetching fundamentals for {stock_ticker}: {e}")
-
-    # Display stored fundamentals
+    # Display stored fundamentals (Placeholder)
     if 'fundamentals' in st.session_state and st.session_state['fundamentals']:
         selected_ticker = st.selectbox("Select Stock Ticker to View Fundamentals", list(st.session_state['fundamentals'].keys()))
 
         if selected_ticker:
-            fundamentals = st.session_state['fundamentals'][selected_ticker]
-            st.write(f"### Fundamentals for {selected_ticker}")
-            st.json(fundamentals)
-
-# Footer
-st.write("""
----
-Developed by Kirthan Shaker Iyangar.
-""")
+            fundamentals = st.session_state['fund
