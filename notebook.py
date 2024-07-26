@@ -216,4 +216,4 @@ with tab3:
         )
         st.altair_chart(spend_chart)
     else:
-        st.write("No budgets added yet
+        st.write("No budgets added yet")
