@@ -15,21 +15,10 @@ Features include:
 - Visualizing your investments with charts.
 - Tracking total amount invested.
 - Calculating and visualizing risk metrics.
-- Fetching and displaying stock fundamentals.
+- Placeholder for fetching and storing stock fundamentals.
 
 Developed by Kirthan Shaker Iyangar.
 """)
-
-# User authentication (Placeholder)
-def login():
-    st.sidebar.header("User Login")
-    username = st.sidebar.text_input("Username")
-    password = st.sidebar.text_input("Password", type='password')
-    if st.sidebar.button("Login"):
-        # Implement authentication logic here
-        st.sidebar.success("Logged in as {}".format(username))
-
-login()
 
 # Creating tabs for Investment Tracker and Stock Fundamentals
 tab1, tab2 = st.tabs(["Investment Tracker", "Stock Fundamentals"])
@@ -132,9 +121,17 @@ with tab2:
         # Placeholder for fetching fundamentals
         st.write("This feature is currently unavailable. Please install yfinance to enable this feature.")
 
-    # Display stored fundamentals (Placeholder)
+    # Display stored fundamentals
     if 'fundamentals' in st.session_state and st.session_state['fundamentals']:
         selected_ticker = st.selectbox("Select Stock Ticker to View Fundamentals", list(st.session_state['fundamentals'].keys()))
 
         if selected_ticker:
-            fundamentals = st.session_state['fund
+            fundamentals = st.session_state['fundamentals'][selected_ticker]
+            st.write(f"### Fundamentals for {selected_ticker}")
+            st.json(fundamentals)
+
+# Footer
+st.write("""
+---
+Developed by Kirthan Shaker Iyangar.
+""")
