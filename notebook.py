@@ -141,7 +141,6 @@ with tab3:
     # Input fields for budget
     budget_category = st.sidebar.text_input("Category (e.g., Food, Rent, Entertainment)")
     budget_amount = st.sidebar.number_input("Budget Amount", min_value=0.0, step=100.0)
-    budget_currency = st.sidebar.selectbox("Currency", ["USD", "EUR", "INR", "JPY", "GBP", "AUD", "CAD", "CHF", "CNY", "SEK", "NZD"])
     budget_date = st.sidebar.date_input("Date")
     add_budget = st.sidebar.button("Add Budget")
 
@@ -154,7 +153,6 @@ with tab3:
         st.session_state['budgets'].append({
             "Category": budget_category,
             "Budget Amount": budget_amount,
-            "Currency": budget_currency,
             "Date": budget_date,
             "Spent": 0.0
         })
@@ -168,9 +166,9 @@ with tab3:
         st.dataframe(df_budgets)
 
         # Function to update spending
-        def update_spending(category, date, amount, currency):
+        def update_spending(category, date, amount):
             for budget in st.session_state['budgets']:
-                if budget["Category"] == category and budget["Date"] == date and budget["Currency"] == currency:
+                if budget["Category"] == category and budget["Date"] == date:
                     budget["Spent"] += amount
                     st.success("Spending updated successfully!")
                     break
@@ -179,12 +177,11 @@ with tab3:
         st.subheader("Update Spending")
         spend_category = st.selectbox("Category to Update", list(set([budget["Category"] for budget in st.session_state['budgets']])))
         spend_date = st.date_input("Date to Update")
-        spend_currency = st.selectbox("Currency", ["USD", "EUR", "INR", "JPY", "GBP", "AUD", "CAD", "CHF", "CNY", "SEK", "NZD"])
         amount_spent = st.number_input("Amount Spent", min_value=0.0, step=10.0)
         update_spend = st.button("Update Spending")
 
         if update_spend:
-            update_spending(spend_category, spend_date, amount_spent, spend_currency)
+            update_spending(spend_category, spend_date, amount_spent)
 
         # Display updated budgets
         df_budgets = pd.DataFrame(st.session_state['budgets'])
@@ -196,7 +193,7 @@ with tab3:
             x='Category',
             y='Budget Amount',
             color='Category',
-            tooltip=['Category', 'Budget Amount', 'Currency', 'Spent', 'Date']
+            tooltip=['Category', 'Budget Amount', 'Spent', 'Date']
         ).properties(
             width=600,
             height=400
@@ -209,11 +206,17 @@ with tab3:
             x='Category',
             y='Spent',
             color='Category',
-            tooltip=['Category', 'Spent', 'Budget Amount', 'Currency', 'Date']
+            tooltip=['Category', 'Spent', 'Budget Amount', 'Date']
         ).properties(
             width=600,
             height=400
         )
         st.altair_chart(spend_chart)
     else:
-        st.write("No budgets added yet")
+        st.write("No budgets added yet.")
+
+# Footer
+st.write("""
+---
+Developed by Kirthan Shaker Iyangar.
+""")
