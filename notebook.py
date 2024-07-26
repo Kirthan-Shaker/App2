@@ -5,18 +5,18 @@ import altair as alt
 
 # Title and description of the app
 st.image("https://miro.medium.com/v2/resize:fit:1400/0*bHrRhzNjMW5dEHJM.png", use_column_width=True, width=1000)
-st.title("Welcome to Your Investment Tracker")
+st.title("Welcome to Your Investment and Budget Tracker")
 st.write("""
 ## Personal Finance Management App
-This app allows you to track your investments across different asset classes. You can add new investments, view your portfolio, and analyze your investment data with risk metrics. 
+This app allows you to track your investments across different asset classes and manage your monthly budgets. You can add new investments, view your portfolio, analyze your investment data with risk metrics, and keep track of your spending.
 Features include:
 - Adding investments with details like investment name, type, amount, date, currency, and stock name.
 - Viewing and analyzing your investment portfolio.
 - Visualizing your investments with charts.
 - Tracking total amount invested.
 - Calculating and visualizing risk metrics.
-- Placeholder for fetching and storing stock fundamentals.
 - Managing monthly budgets and tracking spending.
+- Placeholder for fetching and storing stock fundamentals.
 
 Developed by Kirthan Shaker Iyangar.
 """)
@@ -135,9 +135,87 @@ with tab3:
     st.header("Budget Tracker")
 
     # Sidebar for budget tracker
-    st.sidebar.header("Add a Monthly Budget")
+    st.sidebar.header("Add a Budget")
 
-    # Input fields for monthly budget
-    budget_month = st.sidebar.selectbox("Month", ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
-    budget_year = st.sidebar.number_input("Year", min_value=2000, max_value=2100, step=1, value=2024)
-    total_budget = st.sidebar.number_input
+    # Input fields for budget
+    budget_category = st.sidebar.text_input("Category (e.g., Food, Rent, Entertainment)")
+    budget_amount = st.sidebar.number_input("Budget Amount", min_value=0.0, step=100.0)
+    budget_date = st.sidebar.date_input("Date")
+    add_budget = st.sidebar.button("Add Budget")
+
+    # Data storage for budgets
+    if 'budgets' not in st.session_state:
+        st.session_state['budgets'] = []
+
+    # Adding new budget to the list
+    if add_budget:
+        st.session_state['budgets'].append({
+            "Category": budget_category,
+            "Budget Amount": budget_amount,
+            "Date": budget_date,
+            "Spent": 0.0
+        })
+        st.sidebar.success("Budget added successfully!")
+
+    # Display budgets
+    st.header("Your Budgets")
+
+    if st.session_state['budgets']:
+        df_budgets = pd.DataFrame(st.session_state['budgets'])
+        st.dataframe(df_budgets)
+
+        # Function to update spending
+        def update_spending(category, date, amount):
+            for budget in st.session_state['budgets']:
+                if budget["Category"] == category and budget["Date"] == date:
+                    budget["Spent"] += amount
+                    st.success("Spending updated successfully!")
+                    break
+
+        # Input fields to update spending
+        st.subheader("Update Spending")
+        spend_category = st.selectbox("Category to Update", list(set([budget["Category"] for budget in st.session_state['budgets']])))
+        spend_date = st.date_input("Date to Update")
+        amount_spent = st.number_input("Amount Spent", min_value=0.0, step=10.0)
+        update_spend = st.button("Update Spending")
+
+        if update_spend:
+            update_spending(spend_category, spend_date, amount_spent)
+
+        # Display updated budgets
+        df_budgets = pd.DataFrame(st.session_state['budgets'])
+        st.dataframe(df_budgets)
+
+        # Bar chart of budget vs spending
+        st.subheader("Budget vs Spending")
+        budget_chart = alt.Chart(df_budgets).mark_bar().encode(
+            x='Category',
+            y='Budget Amount',
+            color='Category',
+            tooltip=['Category', 'Budget Amount', 'Spent', 'Date']
+        ).properties(
+            width=600,
+            height=400
+        )
+        st.altair_chart(budget_chart)
+
+        # Spending chart
+        st.subheader("Spending Analysis")
+        spend_chart = alt.Chart(df_budgets).mark_bar().encode(
+            x='Category',
+            y='Spent',
+            color='Category',
+            tooltip=['Category', 'Spent', 'Budget Amount', 'Date']
+        ).properties(
+            width=600,
+            height=400
+        )
+        st.altair_chart(spend_chart)
+    else:
+        st.write("No budgets added yet.")
+
+# Footer
+st.write("""
+---
+Developed by Kirthan Shaker Iyangar.
+""")
