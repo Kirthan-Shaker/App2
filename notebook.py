@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
+from datetime import datetime
 
 # Title and description of the app
 st.image("https://miro.medium.com/v2/resize:fit:1400/0*bHrRhzNjMW5dEHJM.png", use_column_width=True, width=1000)
