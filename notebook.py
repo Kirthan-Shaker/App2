@@ -4,7 +4,7 @@ import numpy as np
 import altair as alt
 
 # Title and description of the app
-st.image("https://miro.medium.com/v2/resize:fit:1400/0*bHrRhzNjMW5dEHJM.png", use_column_width=True)
+st.image("https://miro.medium.com/v2/resize:fit:1400/0*bHrRhzNjMW5dEHJM.png", use_column_width=True, width=1000)
 st.title("Welcome to Your Investment Tracker")
 st.write("""
 ## Personal Finance Management App
