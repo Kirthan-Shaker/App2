@@ -217,7 +217,7 @@ with tab3:
         st.altair_chart(budget_chart)
 
         # Spending chart
-        st.subheader("Spending Analysis")
+        st.subheader("Spending Analysiss")
         spend_chart = alt.Chart(df_budgets).mark_bar().encode(
             x='Category',
             y='Spent',)
