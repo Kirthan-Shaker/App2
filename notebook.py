@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
+import yfinance as yf
 from datetime import datetime
 
 # Title and description of the app
@@ -17,7 +18,7 @@ Features include:
 - Tracking total amount invested.
 - Calculating and visualizing risk metrics.
 - Managing monthly budgets and tracking spending.
-- Placeholder for fetching and storing stock fundamentals.
+- Fetching and storing stock fundamentals.
 
 Developed by Kirthan Shaker Iyangar.
 """)
@@ -120,17 +121,32 @@ with tab2:
     fetch_fundamentals = st.button("Fetch Fundamentals")
 
     if fetch_fundamentals:
-        # Placeholder for fetching fundamentals
-        st.write("This feature is currently unavailable. Please install yfinance to enable this feature.")
+        ticker = yf.Ticker(stock_ticker)
+        fundamentals = {
+            "Previous Close": ticker.info['previousClose'],
+            "Open": ticker.info['open'],
+            "Bid": ticker.info['bid'],
+            "Ask": ticker.info['ask'],
+            "Day's Range": ticker.info['dayRange'],
+            "52 Week Range": ticker.info['fiftyTwoWeekRange'],
+            "Volume": ticker.info['volume'],
+            "Average Volume": ticker.info['averageVolume'],
+            "Market Cap": ticker.info['marketCap'],
+            "Beta (5Y Monthly)": ticker.info['beta'],
+            "PE Ratio (TTM)": ticker.info['trailingPE'],
+            "EPS (TTM)": ticker.info['trailingEps'],
+            "Earnings Date": ticker.info['earningsDate'],
+            "Dividend & Yield": ticker.info['dividendYield'],
+            "Ex-Dividend Date": ticker.info['exDividendDate'],
+            "1y Target Est": ticker.info['targetMeanPrice']
+        }
+        st.session_state['fundamentals'] = fundamentals
+        st.success("Fundamentals fetched successfully!")
 
     # Display stored fundamentals
-    if 'fundamentals' in st.session_state and st.session_state['fundamentals']:
-        selected_ticker = st.selectbox("Select Stock Ticker to View Fundamentals", list(st.session_state['fundamentals'].keys()))
-
-        if selected_ticker:
-            fundamentals = st.session_state['fundamentals'][selected_ticker]
-            st.write(f"### Fundamentals for {selected_ticker}")
-            st.json(fundamentals)
+    if 'fundamentals' in st.session_state:
+        st.write(f"### Fundamentals for {stock_ticker}")
+        st.json(st.session_state['fundamentals'])
 
 with tab3:
     st.header("Budget Tracker")
@@ -205,18 +221,4 @@ with tab3:
         spend_chart = alt.Chart(df_budgets).mark_bar().encode(
             x='Category',
             y='Spent',
-            color='Category',
-            tooltip=['Category', 'Spent', 'Budget Amount', 'Date']
-        ).properties(
-            width=600,
-            height=400
-        )
-        st.altair_chart(spend_chart)
-    else:
-        st.write("No budgets added yet.")
-
-# Footer
-st.write("""
----
-Developed by Kirthan Shaker Iyangar.
-""")
+           
