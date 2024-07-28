@@ -220,5 +220,4 @@ with tab3:
         st.subheader("Spending Analysis")
         spend_chart = alt.Chart(df_budgets).mark_bar().encode(
             x='Category',
-            y='Spent',
-           
+            y='Spent',)
